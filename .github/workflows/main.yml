@@ -1,0 +1,24 @@
+name: Github Actions Demo
+
+on: 
+  workflow_dispatch:
+
+
+jobs:
+  jmeter_job:
+    runs-on: sw-ubuntu-latest
+    name: JMeter Test Execution
+    steps:      
+      - name: Checkout
+        uses: actions/checkout@v3
+        
+      - name: Run JMeter Tests
+        uses: QAInsights/Perfaction@v3.1
+        with:
+          test-plan-path: ./github_actions_demo.jmx
+          
+      - name: Upload Results
+        uses: actions/upload-artifact@v3
+        with:
+          name: jmeter-results
+          path: result.jtl
